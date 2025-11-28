@@ -30,7 +30,7 @@ def generate_code(description, top, down, solution,language):
                            f'**Provide ONLY the missing code lines as the exact output. No extra words or formatting.**'
             }
         ],
-        temperature=0.5,
+        temperature=0,
         max_completion_tokens=2024,
         top_p=1,
         stream=True,

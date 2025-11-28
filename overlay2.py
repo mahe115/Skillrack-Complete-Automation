@@ -10,7 +10,7 @@ class Overlay:
 
         # Set initial position (Top-Right Corner)
         screen_width = self.root.winfo_screenwidth()
-        self.width, self.height = 350, 80  # Overlay size
+        self.width, self.height = 375, 80  # Overlay size
         self.x_pos = screen_width - self.width - 20  # 20px margin from right
         self.y_pos = 20  # 20px margin from top
         self.root.geometry(f"{self.width}x{self.height}+{self.x_pos}+{self.y_pos}")
@@ -21,8 +21,8 @@ class Overlay:
 
         # Label to display the status
         self.label = tk.Label(
-            self.frame, text="Monitoring...", fg="white", bg="black",
-            font=("Arial", 14, "bold"), padx=10, pady=5
+            self.frame, text="⚡ Logging In Progress...", fg="white", bg="black",
+            font=("Arial", 12, "bold"), padx=10, pady=5
         )
         self.label.pack(expand=True, fill="both")
 

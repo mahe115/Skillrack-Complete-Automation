@@ -10,7 +10,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 
-reader = easyocr.Reader(['en'], gpu=False)
+
+reader = easyocr.Reader(['en'], gpu=True)
 
 def solve_captcha(driver,img_element_id):
     """Solves the CAPTCHA automatically using EasyOCR."""
@@ -22,7 +23,7 @@ def solve_captcha(driver,img_element_id):
 
     image_np = np.array(image)
     extracted_text = ' '.join(reader.readtext(image_np, detail=0)).strip()
-    print("Extracted Text:", extracted_text)
+    print("💨 Extracted Text:", extracted_text)
 
     match = re.search(r'(\d+)\s*([\+\-\*/])\s*(\d+)', extracted_text)
     if match:
@@ -33,7 +34,7 @@ def solve_captcha(driver,img_element_id):
         input_field.clear()
         input_field.send_keys(str(result))
         driver.find_element(By.ID, "proceedbtn").click()
-        print("✅ CAPTCHA solved successfully.")
+        print("🎯 CAPTCHA solved successfully.")
     else:
         print("❌ Could not extract a valid equation.")
         driver.quit()
@@ -46,7 +47,7 @@ def monitor_Proceed_button_present(driver, element_checking_id, proceed_button_i
     - If suddenly disappears, throws an error.
     """
 
-    print("⏳Waiting for proceed button appear...")
+    print("⏳ Waiting for proceed button appear...")
     while True:
         try:
             # **Check if the element is present**
@@ -56,7 +57,7 @@ def monitor_Proceed_button_present(driver, element_checking_id, proceed_button_i
                 try:
                     # **Wait for the proceed button to appear**
                     proceed_button = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.ID, proceed_button_id)))
-                    print("✅ Proceed button found, clicking...")
+                    print("🎉 Proceed button found,\n🎊 Program Completed Successfully...\n\n")
                     proceed_button.click()
                     break
 
@@ -68,6 +69,6 @@ def monitor_Proceed_button_present(driver, element_checking_id, proceed_button_i
                 raise RuntimeError(f"Element '{element_checking_id}' was expected but is no longer found.")
 
         except NoSuchElementException:
-            print(f"❌ Element '{element_checking_id}' not found. Retrying in 5 seconds...")
+            print(f"⛔ Element '{element_checking_id}' not found. Retrying in 5 seconds...")
 
 

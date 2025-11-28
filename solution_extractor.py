@@ -28,7 +28,7 @@ def solution_extraction(driver,solution_extraction_class):
         solution_code_soup = BeautifulSoup(solution_code_raw_html, "html.parser")
 
         # **Extract text from `<pre>` tags while preserving formatting**
-        all_class_in_solution_extraction = solution_code_soup.select(f"{solution_extraction_class} pre")
+        all_class_in_solution_extraction = solution_code_soup.select(f"{solution_extraction_class} pre,{solution_extraction_class} p")
         
         all_text_in_solution_extraction = [element.get_text(strip=False) for element in all_class_in_solution_extraction]
         
@@ -37,7 +37,7 @@ def solution_extraction(driver,solution_extraction_class):
         # **Remove leading indentation from each line**
         clean_code = "\n".join(line.lstrip() for line in clean_code.split("\n"))
 
-        print(f"\n✅ Solution Code Extracted:\n{clean_code}")
+        print(f"\n📌 Solution Code Extracted:\n{clean_code}")
   
     except Exception as e:
         print(f"❌ Failed to extract solution code: {e}")
@@ -47,7 +47,6 @@ def solution_extraction(driver,solution_extraction_class):
         # **Close Solution Section**
         try:
             solution_dialog = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.ID, "solutionDialog")))
-            print("✅ Solution section is open.")
 
             close_button = driver.find_element(By.CLASS_NAME, "ui-dialog-titlebar-close")
             try:
@@ -59,7 +58,7 @@ def solution_extraction(driver,solution_extraction_class):
             print("✅ Solution section closed successfully!")
 
         except:
-            print("❌ Solution section is not open or already closed.")
+            print("⛔ Solution section is not open or already closed.")
     
     if solution_extraction_class == 'div#solutionDialog_content':
         print("🔍Clicking solution close button..")
@@ -82,12 +81,12 @@ def top_bottom_code_extraction(driver,Top_code_element_id,Bottom_code_element_id
             Top_soup = BeautifulSoup(Top_raw_html, "html.parser")
             Top_clean_code = Top_soup.get_text().replace("&amp;", "&")  # Clean extracted code
 
-            print(f"\n✅ Top Section Code Extracted:\n{Top_clean_code}")
+            print(f"\n🔷 Top Section Code Extracted:\n{Top_clean_code}")
 
         except Exception as e:
             print(f"❌ Failed to extract Top Section code: {e}")
     else:
-        print("\nTop section was Not Found\n")
+        print("\n⛔Top section was Not Found\n")
         
         
     if driver.find_elements(By.ID, 'j_id_7g') or driver.find_elements(By.ID, 'j_id_8u'):
@@ -100,12 +99,12 @@ def top_bottom_code_extraction(driver,Top_code_element_id,Bottom_code_element_id
             Bottom_soup = BeautifulSoup(Bottom_raw_html, "html.parser")
             Bottom_clean_code = Bottom_soup.get_text().replace("&amp;", "&")  # Clean extracted code
 
-            print(f"\n✅ Bottom Section Code Extracted:\n{Bottom_clean_code}")
+            print(f"\n🔷 Bottom Section Code Extracted:\n{Bottom_clean_code}")
 
         except Exception as e:
             print(f"❌ Failed to extract Bottom Section code: {e}")
     else:
-        print("Bottom Section was Not Found\n")
+        print("⛔Bottom Section was Not Found\n")
 
     return Top_clean_code,Bottom_clean_code
         
@@ -131,7 +130,7 @@ def description_extraction(driver,description_text_id):
         description_text_clean_code = "\n".join(all_texts).replace("&amp;", "&")
 
         # Print the final cleaned text
-        print(f"\n✅ Description Extracted:\n{description_text_clean_code}")
+        print(f"\n🔷 Description Extracted:\n{description_text_clean_code}\n")
         
     except Exception as e:
         print(f"❌ Failed to extract Description code: {e}")
@@ -143,7 +142,7 @@ def description_extraction(driver,description_text_id):
 def AI_response(description_text_clean_code,Top_clean_code, Bottom_clean_code, solution,AI_response_language):
     try:
       AI_generated_output=generate_code(description_text_clean_code,Top_clean_code, Bottom_clean_code, solution,AI_response_language)
-      print(f"\nAI Response:\n{AI_generated_output}\n")
+      print(f"\n🤖 AI Response:\n{AI_generated_output}\n")
       return AI_generated_output
     except:
        print("❌ Failed to Generate solution by AI")

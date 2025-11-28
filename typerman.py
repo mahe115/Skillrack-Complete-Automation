@@ -20,11 +20,11 @@ class TypermanOverlay:
         
     def create_circle_overlay(self):
         """Creates the circular button overlay."""
-        self.root.geometry("65x40+20+20")
+        self.root.geometry("150x50+20+20")
         self.circle_button = tk.Button(
-            self.root, text="Typerman", font=("Arial", 9 , "bold"),
-            bg="red", fg="white", command=self.expand_overlay,
-            width=4, height=3, relief="solid"
+            self.root, text="Typer-man", font=("Arial", 12 , "bold"),
+            bg="black", fg="red", command=self.expand_overlay,
+            width=15, height=7, relief="solid"
         )
         self.circle_button.pack(fill="both", expand=True)
     
@@ -46,9 +46,9 @@ class TypermanOverlay:
         self.button.pack(pady=5)
         
         # Minimize Button (Top-right)
-        self.minimize_button = tk.Button(self.frame, text="−", bg="gray", fg="white", font=("Arial", 10, "bold"),
-                                         command=self.minimize_overlay, width=2)
-        self.minimize_button.place(relx=0.93, rely=0.05)
+        self.minimize_button = tk.Button(self.frame, text="×", bg="gray", fg="white", font=("Arial", 12, "bold"),
+                                         command=self.minimize_overlay, width=3)
+        self.minimize_button.place(relx=0.9, rely=0.009)
         
     def minimize_overlay(self):
         """Minimizes the expanded overlay back to the circle button."""
@@ -75,7 +75,6 @@ class TypermanOverlay:
         
     def human_typing(self, text):
         """Simulates human-like typing."""
-        text = "\n".join(line.lstrip() for line in text.splitlines())
         typo_chance = 0.05  # 5% chance of a typo
         for char in text:
             if random.random() < typo_chance and char.isalnum():
@@ -87,7 +86,13 @@ class TypermanOverlay:
             time.sleep(random.uniform(0.05, 0.2))
         
     def start(self):
-        self.root.mainloop()
+        try:
+            self.root.mainloop()
+        except Exception as e:
+            if "Calling Tcl from different apartment" in str(e):
+                print("✨ Both the GUI and the typing script are running in different threads.")
+            else:
+                raise
         
 if __name__ == "__main__":
     typerman = TypermanOverlay()

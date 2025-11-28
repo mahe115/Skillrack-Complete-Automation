@@ -13,21 +13,22 @@ def standard_navigation(driver):
     print("✅ Navigated to Language successfully.")
 
 
-def login(driver):
+def login(driver,overlay):
     LOGIN_ID = config.LOGIN_ID
     LOGIN_PASSWORD = config.LOGIN_PASSWORD
 
 
     """Logs into Skill Rack with provided credentials."""
     driver.get("https://www.skillrack.com/faces/candidate/tutorprogram.xhtml")
-    print("🔄 Logging in...")
+    overlay.set_status("⚡ Logging in Progress...")
+    print("⚡ Logging in...")
 
     WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.NAME, "j_username")))
 
     driver.find_element(By.NAME, "j_username").send_keys(LOGIN_ID)
     driver.find_element(By.NAME, "j_password").send_keys(LOGIN_PASSWORD)
     driver.find_element(By.CSS_SELECTOR, "input.ui.button.primary").click()
-    print("✅ Logged in successfully.")
+    print("🔥 Logged in successfully.")
     
     standard_navigation(driver)
     
