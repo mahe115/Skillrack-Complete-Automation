@@ -2,25 +2,6 @@
 
 > A Selenium-powered Python bot that autonomously navigates, solves, and submits coding challenges on [Skillrack](https://www.skillrack.com) using AI-generated solutions, OCR-based CAPTCHA solving, and human-like typing simulation.
 
----
-
-## 📌 Table of Contents
-
-- [Overview](#overview)
-- [Architecture](#architecture)
-- [Module Breakdown](#module-breakdown)
-- [Process Flow](#process-flow)
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [File Structure](#file-structure)
-- [Known Limitations](#known-limitations)
-- [Disclaimer](#disclaimer)
-
----
-
 ## 🔍 Overview
 
 Skillrack Complete Automation is an end-to-end browser automation system that:
@@ -37,7 +18,7 @@ The system integrates a live overlay UI, Groq's `qwen-2.5-32b` LLM for AI code g
 ---
 
 ## 🏗️ Architecture
-
+![process design](skillrack_process_flow.svg)
 ```
 ┌─────────────────────────────────────────────────────┐
 │                     test_main.py                    │
